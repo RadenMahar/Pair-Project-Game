@@ -59,30 +59,15 @@ var bombArray = [
   [0,0,0,0,0,0,0,0,0,0,0,0,0],
 ];
 
-var itemArray=[[],[],[],[],[],[],[],[],[],[],[]]
-
-for(i in map){
-  var items = ['immortal','decreasehealth','ownhealth','expandbomb','deactivated'];
-  for(j in map[i]){
-    if(map[i][j]===1){
-      itemArray[i].push(items[Math.floor(Math.random()*4.9)]);
-    } else {
-      itemArray[i].push(0);
-    }
-
-  }
-};
-
-// console.log(itemArray);
 //Map code
 var STANDARDTILE = 0;
 var SOFTWALL = 1; //softWall
 var HARDWALL = 2; //hardWall
-var PLAYER2 = -1;
-// var MONSTER = 4;
+var PRINCESS = -1;
+var MONSTER = 4;
 var HERO = 5; //Player Character
-// var MONSTER_TWO = 6;
-// var MONSTER_THREE = 7;
+var MONSTER_TWO = 6;
+var MONSTER_THREE = 7;
 // var MONSTER_FOUR = 8;
 // var MONSTER_FIVE = 9;
 var STANDARDTILE2 = 10;
@@ -123,33 +108,33 @@ for(var row = 0; row < ROWS; row++)
       heroRow = row;
       heroColumn = column;
     }
-    if(gameObjects[row][column] === MONSTER)
-    {
-      monsterRow = row;
-      monsterColumn = column;
-    }
-    if (gameObjects[row][column] === MONSTER_TWO)
-    {
-      monsterRow_Two = row;
-      monsterColumn_Two = column;
-    }
-    if (gameObjects[row][column] === MONSTER_THREE)
-    {
-      monsterRow_Three = row;
-      monsterColumn_Three = column;
-    }
   }
 }
-var MonsterMove1 = window.setInterval(moveMonster(monsterRow, monsterColumn,"One"), 600) // Making first monster move
-var MonsterMove2 = window.setInterval(moveMonster(monsterRow_Two, monsterColumn_Two,"Two"), 700) // Making second monster move
-var MonsterMove3 = window.setInterval(moveMonster(monsterRow_Three, monsterColumn_Three,"Three"), 800) // Making third monster move
+
+// for(var row = 0; row < ROWS; row++)
+// {
+//   for(var column = 0; column < COLUMNS; column++)
+//   {
+//     if(gameObjects[row][column] === HERO)
+//     {
+//       hero1Row = row;
+//       hero1Column = column;
+//     }
+//   }
+// }
 
 //Arrow key codes
-var Player1UP = 38; //Keycode for Player1UP
+var UP = 38; //Keycode for up
 var DOWN = 40; //Keycode for down
 var RIGHT = 39; //Keycode for right
 var LEFT = 37; //Keycode for left
-var SPACEBAR = 32; //Keycode for Spacebar
+var SPACEBAR = 17; //Keycode for Spacebar
+
+var W = 87; //Keycode for up
+var S = 83; //Keycode for down
+var D = 68; //Keycode for right
+var A = 65; //Keycode for left
+var Q = 61; //Keycode for Spacebar
 
 render();
 
@@ -157,7 +142,7 @@ function keydownHandler(event) {
   event.preventDefault()
   switch(event.keyCode)
   {
-    case Player1UP:
+    case UP:
     if(heroRow > 0)
     {
       //Clear the hero's current cell
@@ -166,7 +151,7 @@ function keydownHandler(event) {
       //Subract 1 from the hero's row
       heroRow--;
 
-      //Apply the hero's new Player1UPdated position to the array
+      //Apply the hero's new updated position to the array
       // gameObjects[heroRow][heroColumn] = HERO;
 
       //If the new position is not zero. Do not allow the move
@@ -354,7 +339,7 @@ function moveMonster(rowParameter, columnParameter, WhichMonster) //Movement for
    return function()
   {
     //The 4 possible directions that the monster can move
-    var Player1UP = 1;
+    var UP = 1;
     var DOWN = 2;
     var LEFT = 3;
     var RIGHT = 4;
@@ -376,7 +361,7 @@ function moveMonster(rowParameter, columnParameter, WhichMonster) //Movement for
       var thingAbove = map[rowParameter - 1][columnParameter];
       if ((thingAbove === 0) && ((gameObjects[rowParameter - 1][columnParameter] === 5) || (gameObjects[rowParameter - 1][columnParameter] === 0)))
       {
-        validDirections.push(Player1UP);
+        validDirections.push(UP);
       }
     }
     if(rowParameter < ROWS - 1)
@@ -421,31 +406,31 @@ function moveMonster(rowParameter, columnParameter, WhichMonster) //Movement for
     //Move the monster in the chosen direction
     switch(direction)
     {
-      case Player1UP:
+      case UP:
       //Clear the monster's current cell
       gameObjects[rowParameter][columnParameter] = 0;
       //Subtract 1 from the monster's row
       rowParameter--;
-      //Apply the monster's new Player1UPdated position to the array
-      gameObjects[rowParameter][columnParameter] = MONSTER;
+      //Apply the monster's new updated position to the array
+      // gameObjects[rowParameter][columnParameter] = MONSTER;
       break;
 
       case DOWN:
       gameObjects[rowParameter][columnParameter] = 0;
       rowParameter++;
-      gameObjects[rowParameter][columnParameter] = MONSTER;
+      // gameObjects[rowParameter][columnParameter] = MONSTER;
       break;
 
       case LEFT:
       gameObjects[rowParameter][columnParameter] = 0;
       columnParameter--;
-      gameObjects[rowParameter][columnParameter] = MONSTER;
+      // gameObjects[rowParameter][columnParameter] = MONSTER;
       break;
 
       case RIGHT:
       gameObjects[rowParameter][columnParameter] = 0;
       columnParameter++;
-      gameObjects[rowParameter][columnParameter] = MONSTER;
+      // gameObjects[rowParameter][columnParameter] = MONSTER;
       //console.log("monster_one moving out");
     }
     //console.log(rowParameter, columnParameter);
@@ -536,26 +521,20 @@ function endGame(scenario) {
     } else {
       score = final_score
     }
-    //score = score + 10000;
 
     //Display the game message
     gameMessage = "PRINCESS Saved! :)";
     victorySound.play();
     End = true
 
-  } else if (scenario === "KilledByMonster")  {
-
-    gameMessage = "Eaten Alive!";
-    bombermanLife = 0;
-    gameOverBoo.play();
-
-    End = true
   } else if (scenario === "KilledByBomb"){
-    gameMessage = "BOOM! In your face!";
-    bombermanLife = 0;
+    bombermanLife -= 10;
+    bombArray[heroRow][heroColumn] = 0;
     gameOverBoo.play();
-
-    End = true
+    if(bombermanLife <= 0){
+      End = true;
+      gameMessage = "BOOM! In your face!";
+    }
   } else {
 
   }
@@ -615,6 +594,7 @@ function render()
         case HARDWALL:
         cell.src = "img/Games-Artwork/hardWall.png";
         break;
+
       }
 
       switch(bombArray[row][column])
@@ -639,12 +619,11 @@ function render()
         break;
 
         case HERO:
-        cell.src ="img/Games-Artwork/bomberman.gif"
+        cell.src ="img/Games-Artwork/player-1.png"
         break;
 
-        
-        case PLAYER2:
-        cell.src = "img/Games-Artwork/httpbakugaiden.proboards.png";
+        case PRINCESS:
+        cell.src = "img/Games-Artwork/player-2.png";
         break;
 
       }
