@@ -10,13 +10,14 @@ console.log(output);
 window.addEventListener("keydown", keydownHandler, false);
 var Render = window.setInterval(render, 50); // Render the game constantly
 
+
 function restart() {
   document.location.href="";
 }
 
 //The game map
 var map = [
-  [0,0,0,1,1,0,0,0,1,0,0,0,0],
+  [0,0,1,1,1,1,1,1,1,1,0,0,0],
   [0,2,1,2,0,2,0,2,0,2,0,2,0],
   [0,0,1,0,1,0,1,2,1,0,0,0,0],
   [0,2,0,2,1,2,0,2,1,2,1,2,1],
@@ -28,6 +29,14 @@ var map = [
   [0,2,0,2,0,2,0,2,1,2,0,2,1],
   [1,0,0,0,1,1,1,0,2,0,1,0,-1],
 ];
+
+for(let i = 0; i < map.length; i++){
+  for(let j = 0; j < map.length; j++){
+    if((i && j !== 0) && (i%2 === 0 && j%2 === 0) && (i !== map.length-1 && j !== map.length-1)){
+      map[i][j] = Math.floor(Math.random()*1.9)
+    }
+  }
+}
 
 //The game objects map
 var gameObjects = [
@@ -98,6 +107,8 @@ var COLUMNS = map[0].length;
 //Find the hero's and monster's start positions
 var heroRow;
 var heroColumn;
+var hero2Row;
+var hero2Column;
 var monsterRow;
 var monsterColumn;
 var monsterRow_Two;
@@ -121,6 +132,11 @@ for(var row = 0; row < ROWS; row++)
     {
       heroRow = row;
       heroColumn = column;
+    }
+    else if(gameObjects[row][column] === PRINCESS)
+    {
+      hero2Row = row;
+      hero2Column = column;
     }
   }
 }
@@ -148,7 +164,7 @@ var W = 87; //Keycode for up
 var S = 83; //Keycode for down
 var D = 68; //Keycode for right
 var A = 65; //Keycode for left
-var Q = 61; //Keycode for Spacebar
+var Q = 81; //Keycode for Spacebar
 
 render();
 
@@ -178,6 +194,29 @@ function keydownHandler(event) {
     }
     break;
 
+    case W:
+      if(hero2Row > 0)
+      {
+        //Clear the hero's current cell
+        gameObjects[hero2Row][hero2Column] = 0;
+  
+        //Subract 1 from the hero's row
+        hero2Row--;
+  
+        //Apply the hero's new updated position to the array
+        // gameObjects[heroRow][heroColumn] = HERO;
+  
+        //If the new position is not zero. Do not allow the move
+        if ((map[hero2Row][hero2Column] > 0) || (bombArray[hero2Row][hero2Column] === -2)) //Compare tiles
+        {
+          hero2Row++;
+        };
+        gameObjects[hero2Row][hero2Column] = PRINCESS;
+        bomberMoveSounds.play();
+      }
+      break;
+    
+
     case DOWN:
     if(heroRow < ROWS - 1)
     {
@@ -194,6 +233,22 @@ function keydownHandler(event) {
     }
     break;
 
+    case S:
+    if(hero2Row < ROWS - 1)
+    {
+      gameObjects[hero2Row][hero2Column] = 0;
+      hero2Row++;
+
+      if ((map[hero2Row][hero2Column] > 0) || (bombArray[hero2Row][hero2Column] === -2))
+      {
+        hero2Row--;
+      };
+
+      gameObjects[hero2Row][hero2Column] = PRINCESS;
+      bomberMoveSounds.play();
+    }
+    break;
+
     case LEFT:
     if(heroColumn > 0)
     {
@@ -206,6 +261,22 @@ function keydownHandler(event) {
       };
 
       gameObjects[heroRow][heroColumn] = HERO;
+      bomberMoveSounds.play();
+    }
+    break;
+
+    case A:
+    if(hero2Column > 0)
+    {
+      gameObjects[hero2Row][hero2Column] = 0;
+      hero2Column--;
+
+      if ((map[hero2Row][hero2Column] > 0) || (bombArray[hero2Row][hero2Column] === -2))
+      {
+        hero2Column++;
+      };
+
+      gameObjects[hero2Row][hero2Column] = PRINCESS;
       bomberMoveSounds.play();
     }
     break;
@@ -228,6 +299,24 @@ function keydownHandler(event) {
     }
     break;
 
+    case D:
+    if(hero2Column < COLUMNS - 1)
+    {
+      gameObjects[hero2Row][hero2Column] = 0;
+      hero2Column++;
+
+      if ((map[hero2Row][hero2Column] > 0)  || (bombArray[hero2Row][hero2Column] === -2))
+      {
+        hero2Column--;
+      };
+
+
+      gameObjects[hero2Row][hero2Column] = PRINCESS;
+      bomberMoveSounds.play();
+
+    }
+    break;
+
     case SPACEBAR:
     {
       console.log("A Bomb has been planted.");
@@ -235,6 +324,16 @@ function keydownHandler(event) {
       plantBombSpaceBar.play();
     }
     break;
+
+    case Q:
+    {
+      console.log("A Bomb has been planted.");
+      placeBomb();
+      plantBombSpaceBar.play();
+    }
+    break;
+
+    
   }
 
   //Render the game
