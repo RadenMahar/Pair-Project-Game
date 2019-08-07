@@ -59,6 +59,20 @@ var bombArray = [
   [0,0,0,0,0,0,0,0,0,0,0,0,0],
 ];
 
+var itemArray=[[],[],[],[],[],[],[],[],[],[],[]]
+
+for(i in map){
+  var items = ['immortal','decreasehealth','ownhealth','expandbomb','deactivated'];
+  for(j in map[i]){
+    if(map[i][j]===1){
+      itemArray[i].push(items[Math.floor(Math.random()*4.9)]);
+    } else {
+      itemArray[i].push(0);
+    }
+
+  }
+};
+
 //Map code
 var STANDARDTILE = 0;
 var SOFTWALL = 1; //softWall
@@ -280,6 +294,25 @@ function clearTiles(){
     bombArray[bombRow1 - 1][bombColumn1] = 12
   }
 
+  function showItemTileRight(){
+    bombArray[bombRow1][bombColumn1 + 1] = itemArray[bombRow1][bombColumn1 + 1];
+  }
+
+  function showItemTileCenter(){
+    bombArray[bombRow1][bombColumn1] = itemArray[bombRow1][bombColumn1];
+  }
+
+  function showItemTileBelow(){
+    bombArray[bombRow1 + 1][bombColumn1] = itemArray[bombRow1 + 1][bombColumn1];
+  }
+
+  function showItemTileLeft(){
+    bombArray[bombRow1][bombColumn1 - 1] = itemArray[bombRow1][bombColumn1 - 1];
+  }
+
+  function showItemTileAbove(){
+    bombArray[bombRow1 - 1][bombColumn1] = itemArray[bombRow1 - 1][bombColumn1]; 
+  }
 
   function explode(bombRow1, bombColumn1){
     //alert('BOOM!');
@@ -291,7 +324,8 @@ function clearTiles(){
     //Right. < 2 as only 1 and 0 variables of softwall and standardtile can be bombed
     if ((map[bombRow1][bombColumn1 + 1] < 2) && (bombColumn1 <= COLUMNS)) {
       setTimeout(burningTileRight,0)
-      setTimeout(clearTiles, 1000)
+      setTimeout(showItemTileRight,1000)
+      setTimeout(clearTiles, 50000)
       //console.log("There's a fire");
       map[bombRow1][bombColumn1 + 1] = 0;
       //test bomb the spider
@@ -301,7 +335,8 @@ function clearTiles(){
     //Useless, player cannot move to non-movable tiles
     if (map[bombRow1][bombColumn1] < 2) {
       setTimeout(burningTileCenter,0)
-      setTimeout(clearTiles, 1000)
+      setTimeout(showItemTileCenter,1000)
+      setTimeout(clearTiles, 50000)
       map[bombRow1][bombColumn1] = 0; // bombed the original bomb spot
 
     }
@@ -309,7 +344,8 @@ function clearTiles(){
     //Below
     if ((map[bombRow1 + 1][bombColumn1]  < 2) && (bombRow1 <= ROWS)) {
       setTimeout(burningTileBelow,0)
-      setTimeout(clearTiles, 1000)
+      setTimeout(showItemTileBelow,1000)
+      setTimeout(clearTiles, 50000)
       map[bombRow1 + 1][bombColumn1] = 0; //bombed one tile below
 
     }
@@ -317,14 +353,16 @@ function clearTiles(){
     //Left
     if ((map[bombRow1][bombColumn1 - 1] < 2) && (bombColumn1 >= 0)) {
       setTimeout(burningTileLeft,0)
-      setTimeout(clearTiles, 1000)
+      setTimeout(showItemTileLeft,1000)
+      setTimeout(clearTiles, 50000)
       map[bombRow1][bombColumn1 - 1] = 0;
     }                                  //bombed the left tile
 
     //Above
     if ((map[bombRow1 - 1][bombColumn1] < 2) &&  (bombRow1 >= 0)) {
       setTimeout(burningTileAbove,0)
-      setTimeout(clearTiles, 1000)
+      setTimeout(showItemTileAbove,1000)
+      setTimeout(clearTiles, 50000)
       map[bombRow1 - 1][bombColumn1] = 0 ; //bombed the above tile
       //test bomb the spider
     }
@@ -500,6 +538,31 @@ function CheckState() {
     scenario = "KilledByMonster"
   } else if (bombArray[heroRow][heroColumn] === FIRE) {
     scenario = "KilledByBomb"
+  } else if(bombArray[heroRow][heroColumn]==='immortal'){
+    score += 10000000
+    bombArray[heroRow][heroColumn]=0;
+    itemArray[heroRow][heroColumn]=0;
+    scenario = "GameOn"
+  } else if (bombArray[heroRow][heroColumn]==='decreasehealth'){
+    score += 100000000
+    bombArray[heroRow][heroColumn]=0;
+    itemArray[heroRow][heroColumn]=0;
+    scenario = "GameOn"
+  } else if (bombArray[heroRow][heroColumn]==='ownhealth') {
+    score += 1000000000
+    bombArray[heroRow][heroColumn]=0;
+    itemArray[heroRow][heroColumn]=0;
+    scenario = "GameOn"
+  } else if (bombArray[heroRow][heroColumn]==='expandbomb') {
+    score += 10000000000
+    bombArray[heroRow][heroColumn]=0;
+    itemArray[heroRow][heroColumn]=0;
+    scenario = "GameOn"
+  } else if (bombArray[heroRow][heroColumn]==='deactivated') {
+    score += 100000000000
+    bombArray[heroRow][heroColumn]=0;
+    itemArray[heroRow][heroColumn]=0;
+    scenario = "GameOn"
   } else {
     scenario = "GameOn"
   }
@@ -608,6 +671,26 @@ function render()
         cell.src ="img/Games-Artwork/Fire_gif.gif";
 
         break;
+
+        case 'immortal':
+          cell.src="https://cdn4.iconfinder.com/data/icons/hero-villain/200/16-512.png";
+          break;
+
+        case 'decreasehealth':
+          cell.src="https://cdn0.iconfinder.com/data/icons/dottie-game/24/game_019-challenge-swords-match-attack-weapon-512.png";
+          break;
+        
+        case 'ownhealth':
+          cell.src = "https://www.pinclipart.com/picdir/middle/159-1592770_beat-cardiac-care-health-healthcare-healthy-heart-white.png";
+          break;
+
+        case 'expandbomb':
+          cell.src = "https://cdn.iconscout.com/icon/premium/png-256-thumb/bomb-199-647513.png";
+          break;
+        
+        case 'deactivated':
+          cell.src = "https://66.media.tumblr.com/372fc56207f91295530fbe844f334711/tumblr_payhcjbm8E1r2hy3ro1_400.gifhttps://cdn0.iconfinder.com/data/icons/basic-glyph/1024/remove-user-512.png";
+          break;
 
       }
       //Add the hero and monster from the gameObjects array

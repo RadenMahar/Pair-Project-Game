@@ -186,4 +186,38 @@
   body {
     background-color: #a7c299;
   }
+
+#home {
+  height: 740px;
+  background-image: url("img/Games-Artwork/background.jpg");
+}
+
+.box {
+  font-family: sans-serif;
+  height: 300px;
+  width: 600px;
+  background-color: #a7c299;
+  margin-top: 220px;
+  margin-left: 377px;
+  border-radius: 40px;
+  border: #4CAF50 solid 5px;
+}
+
+.opsi {
+  font-size: 28px;
+  width: 120px;
+  height: 50px;
+  background-color: aqua;
+  border: gray solid 2px;
+  display: inline-block;
+  margin-left: 120px;
+  border-radius: 10px;
+}
+
+.opsi p {
+  align-self: center;
+  margin-left: 20px;
+  color: #4CAF50;
+
+}
   
