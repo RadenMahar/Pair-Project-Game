@@ -541,22 +541,27 @@ function CheckState() {
   } else if(bombArray[heroRow][heroColumn]==='immortal'){
     score += 10000000
     bombArray[heroRow][heroColumn]=0;
+    itemArray[heroRow][heroColumn]=0;
     scenario = "GameOn"
   } else if (bombArray[heroRow][heroColumn]==='decreasehealth'){
     score += 100000000
     bombArray[heroRow][heroColumn]=0;
+    itemArray[heroRow][heroColumn]=0;
     scenario = "GameOn"
   } else if (bombArray[heroRow][heroColumn]==='ownhealth') {
     score += 1000000000
     bombArray[heroRow][heroColumn]=0;
+    itemArray[heroRow][heroColumn]=0;
     scenario = "GameOn"
   } else if (bombArray[heroRow][heroColumn]==='expandbomb') {
     score += 10000000000
     bombArray[heroRow][heroColumn]=0;
+    itemArray[heroRow][heroColumn]=0;
     scenario = "GameOn"
   } else if (bombArray[heroRow][heroColumn]==='deactivated') {
     score += 100000000000
     bombArray[heroRow][heroColumn]=0;
+    itemArray[heroRow][heroColumn]=0;
     scenario = "GameOn"
   } else {
     scenario = "GameOn"
@@ -668,23 +673,23 @@ function render()
         break;
 
         case 'immortal':
-          cell.src="https://thumbs.gfycat.com/DigitalAdorableAustraliancattledog-small.gif";
+          cell.src="https://cdn4.iconfinder.com/data/icons/hero-villain/200/16-512.png";
           break;
 
         case 'decreasehealth':
-          cell.src="https://i.pinimg.com/originals/f5/ce/39/f5ce396aaf220314e3b95817fa1002fc.gif";
+          cell.src="https://cdn0.iconfinder.com/data/icons/dottie-game/24/game_019-challenge-swords-match-attack-weapon-512.png";
           break;
         
         case 'ownhealth':
-          cell.src = "https://media2.giphy.com/media/DUKR5HXCBmnew/source.gif";
+          cell.src = "https://www.pinclipart.com/picdir/middle/159-1592770_beat-cardiac-care-health-healthcare-healthy-heart-white.png";
           break;
 
         case 'expandbomb':
-          cell.src = "https://media.tenor.com/images/fa9775da859923c4cc65608ada8e8d81/tenor.gif";
+          cell.src = "https://cdn.iconscout.com/icon/premium/png-256-thumb/bomb-199-647513.png";
           break;
         
         case 'deactivated':
-          cell.src = "https://66.media.tumblr.com/372fc56207f91295530fbe844f334711/tumblr_payhcjbm8E1r2hy3ro1_400.gif";
+          cell.src = "https://66.media.tumblr.com/372fc56207f91295530fbe844f334711/tumblr_payhcjbm8E1r2hy3ro1_400.gifhttps://cdn0.iconfinder.com/data/icons/basic-glyph/1024/remove-user-512.png";
           break;
 
       }
