@@ -32,16 +32,16 @@ var map = [
 //The game objects map
 var gameObjects = [
   [5,0,0,0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0,7,0,0],
-  [0,0,0,0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0,0,6,0],
-  [0,0,0,0,4,0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0,0,0,-1],
 ];
 
 //Bomb map
@@ -59,15 +59,30 @@ var bombArray = [
   [0,0,0,0,0,0,0,0,0,0,0,0,0],
 ];
 
+var itemArray=[[],[],[],[],[],[],[],[],[],[],[]]
+
+for(i in map){
+  var items = ['immortal','decreasehealth','ownhealth','expandbomb','deactivated'];
+  for(j in map[i]){
+    if(map[i][j]===1){
+      itemArray[i].push(items[Math.floor(Math.random()*4.9)]);
+    } else {
+      itemArray[i].push(0);
+    }
+
+  }
+};
+
+// console.log(itemArray);
 //Map code
 var STANDARDTILE = 0;
 var SOFTWALL = 1; //softWall
 var HARDWALL = 2; //hardWall
-var PRINCESS = -1;
-var MONSTER = 4;
+var PLAYER2 = -1;
+// var MONSTER = 4;
 var HERO = 5; //Player Character
-var MONSTER_TWO = 6;
-var MONSTER_THREE = 7;
+// var MONSTER_TWO = 6;
+// var MONSTER_THREE = 7;
 // var MONSTER_FOUR = 8;
 // var MONSTER_FIVE = 9;
 var STANDARDTILE2 = 10;
@@ -600,10 +615,6 @@ function render()
         case HARDWALL:
         cell.src = "img/Games-Artwork/hardWall.png";
         break;
-
-        case PRINCESS:
-        cell.src = "img/Games-Artwork/httpbakugaiden.proboards.png";
-        break;
       }
 
       switch(bombArray[row][column])
@@ -631,16 +642,9 @@ function render()
         cell.src ="img/Games-Artwork/bomberman.gif"
         break;
 
-        case MONSTER:
-        cell.src = "img/Games-Artwork/botSpider.png";
-        break;
-
-        case MONSTER_TWO:
-        cell.src = "img/Games-Artwork/botSpider.png";
-        break;
-
-        case MONSTER_THREE:
-        cell.src = "img/Games-Artwork/botSpider.png";
+        
+        case PLAYER2:
+        cell.src = "img/Games-Artwork/httpbakugaiden.proboards.png";
         break;
 
       }
