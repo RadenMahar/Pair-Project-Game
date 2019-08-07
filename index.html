@@ -10,18 +10,17 @@
   <div id="container">
     <div id="left-column">
       <h3> <b> Instructions:</b></h3>
-      <p>Use your keyboard's arrow keys to move Bomberman of Player 1 through the map!, and Press ctrl to set the Bomb </p>
-      <p>Use your keyboard's w, a, s, d to move Bomberman of Player 2 through the map!, and Press ctrl to set the Bomb</p>
+      <p>Use your keyboard's arrow keys to move Bomberman through the map! </p>
+      <p>Press Spacebar to set bombs to destroy the enemies on the map!</p>
       <h3><b>Objective:</b></h3>
-      <p>The One who live is the winner </p>
-      <p>Use Everything  you can do to finish your enemy</p>
-      <img id ="bomberman-picture1" src="img/Games-Artwork/bomberman_b_daman__by_invader_kai.png" alt="bomberman-picture1">
+      <p>Save the Princess! </p>
+      <!-- <img id ="bomberman-picture1" src="img/Games-Artwork/bomberman_b_daman__by_invader_kai.png" alt="bomberman-picture1"> -->
     </div>
     <section id="game"> <!-- middle-Column -->
       <div id="gameboard">
         <div class="b" id="bomberman-life">
           <div id ="bomberman-face">
-            <img id ="bomberman-face1" src="img/Games-Artwork/bomberman_life.jpg" alt="Bomberman face">
+            <img id ="bomberman-face1" src="img/Games-Artwork/bomberman_life.png" alt="Bomberman face">
           </div>
           <div>
             <span id="bomberLife"></span> <!-- Display number of life left for bomberman-->
@@ -35,14 +34,22 @@
       <div id="stage"></div>
     </section>
     <div id="right-column">
-      <img id ="gamePoster" src="img/Games-Artwork/Super_bomberman_sfc_box_cover.jpg" alt="Original gamePoster">
+      <!-- <img id ="gamePoster" src="img/Games-Artwork/Super_bomberman_sfc_box_cover.jpg" alt="Original gamePoster"> -->
       <div id="gameMode">
-        <p><b>Mode:</b> Single Player</p>
+        <p><b>Mode:</b> Multi Player</p>
         <p><b>Platform:</b> Desktop</p>
-        <p><b>Release Date:</b> August 2016</p>
+        <p><b>Release Date:</b> August 2019</p>
         <button id="resetButton" onclick="restart()">Reset Game</button>
       </div>
     </div>
+    <!-- The real music of Bomberman -->
+    <audio id="background" autoplay loop src="sounds/backgroundMusic.mp3"></audio>
+    <audio id="bombermanStartingSound" src="sounds/BombermanStartingSound.wav"></audio>
+    <audio id="bombermanMovementSounds" src="sounds/PLAYER_WALK.wav"></audio>
+    <audio id="plantBombSounds" src="sounds/BOM_SET.wav"></audio>
+    <audio id="explodedBombSounds" src="sounds/ExplodedBomb.wav"></audio>
+    <audio id="winSounds" src="sounds/VictorySong.mp3"></audio>
+    <audio id="gameOverSounds" src="sounds/Game-over.mp3"></audio>
   </div>
   <script src="bomberman.js"></script>
 </body>

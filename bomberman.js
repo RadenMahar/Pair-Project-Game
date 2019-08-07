@@ -41,7 +41,7 @@ var gameObjects = [
   [0,0,0,0,0,0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0,0,0,-1],
 ];
 
 //Bomb map
@@ -108,26 +108,20 @@ for(var row = 0; row < ROWS; row++)
       heroRow = row;
       heroColumn = column;
     }
-    if(gameObjects[row][column] === MONSTER)
-    {
-      monsterRow = row;
-      monsterColumn = column;
-    }
-    if (gameObjects[row][column] === MONSTER_TWO)
-    {
-      monsterRow_Two = row;
-      monsterColumn_Two = column;
-    }
-    if (gameObjects[row][column] === MONSTER_THREE)
-    {
-      monsterRow_Three = row;
-      monsterColumn_Three = column;
-    }
   }
 }
-var MonsterMove1 = window.setInterval(moveMonster(monsterRow, monsterColumn,"One"), 600) // Making first monster move
-var MonsterMove2 = window.setInterval(moveMonster(monsterRow_Two, monsterColumn_Two,"Two"), 700) // Making second monster move
-var MonsterMove3 = window.setInterval(moveMonster(monsterRow_Three, monsterColumn_Three,"Three"), 800) // Making third monster move
+
+// for(var row = 0; row < ROWS; row++)
+// {
+//   for(var column = 0; column < COLUMNS; column++)
+//   {
+//     if(gameObjects[row][column] === HERO)
+//     {
+//       hero1Row = row;
+//       hero1Column = column;
+//     }
+//   }
+// }
 
 //Arrow key codes
 var UP = 38; //Keycode for up
@@ -135,6 +129,12 @@ var DOWN = 40; //Keycode for down
 var RIGHT = 39; //Keycode for right
 var LEFT = 37; //Keycode for left
 var SPACEBAR = 17; //Keycode for Spacebar
+
+var W = 87; //Keycode for up
+var S = 83; //Keycode for down
+var D = 68; //Keycode for right
+var A = 65; //Keycode for left
+var Q = 61; //Keycode for Spacebar
 
 render();
 
@@ -521,26 +521,20 @@ function endGame(scenario) {
     } else {
       score = final_score
     }
-    //score = score + 10000;
 
     //Display the game message
     gameMessage = "PRINCESS Saved! :)";
     victorySound.play();
     End = true
 
-  } else if (scenario === "KilledByMonster")  {
-
-    gameMessage = "Eaten Alive!";
-    bombermanLife = 0;
-    gameOverBoo.play();
-
-    End = true
   } else if (scenario === "KilledByBomb"){
-    gameMessage = "BOOM! In your face!";
-    bombermanLife = 0;
+    bombermanLife -= 10;
+    bombArray[heroRow][heroColumn] = 0;
     gameOverBoo.play();
-
-    End = true
+    if(bombermanLife <= 0){
+      End = true;
+      gameMessage = "BOOM! In your face!";
+    }
   } else {
 
   }
@@ -601,9 +595,6 @@ function render()
         cell.src = "img/Games-Artwork/hardWall.png";
         break;
 
-        case PRINCESS:
-        cell.src = "img/Games-Artwork/httpbakugaiden.proboards.png";
-        break;
       }
 
       switch(bombArray[row][column])
@@ -628,19 +619,11 @@ function render()
         break;
 
         case HERO:
-        cell.src ="img/Games-Artwork/bomberman.gif"
+        cell.src ="img/Games-Artwork/player-1.png"
         break;
 
-        case MONSTER:
-        cell.src = "img/Games-Artwork/botSpider.png";
-        break;
-
-        case MONSTER_TWO:
-        cell.src = "img/Games-Artwork/botSpider.png";
-        break;
-
-        case MONSTER_THREE:
-        cell.src = "img/Games-Artwork/botSpider.png";
+        case PRINCESS:
+        cell.src = "img/Games-Artwork/player-2.png";
         break;
 
       }
