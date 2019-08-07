@@ -1,0 +1,189 @@
+
+@font-face {
+    font-family: BombermanFont;
+    src: url(../fonts/press-start/prstart.ttf);
+  }
+  
+  #bomberman-picture1 {
+    position: absolute;
+    width: 240px;
+    height:228px;
+    bottom:0;
+    margin-bottom: 15px;
+    margin-left: 5px;
+  }
+  
+  #bomberLife {
+    color:white;
+    font-size:40px;
+    vertical-align: bottom;
+    display:table-cell;
+    line-height: 1.9em;
+    text-align: center;
+    border: 1px solid red;
+    width: 100px;
+    height:65px;
+    margin-right:10px;
+    margin-left:10px;
+    margin-top: 4px;
+    float:right;
+    background-color: black;
+    padding-top: 5px;
+  }
+  
+  #bomberman-face1 {
+    height:56px;
+    width: 56px;
+    margin-top:10px;
+    marign-right:10px;
+    margin-left: 10px;
+    float:left;
+  }
+  
+  #container {
+    background-color: #a7c299;
+    height:900px;
+    width:1500px;
+    margin: auto;
+    margin-top: 15px;
+  }
+  
+  #right-column {
+    display: inline-block;
+    clear:left;
+    overflow:hidden;
+    font-size: 24px;
+    font-family: 'Slabo 27px', serif;
+    background-color: #a7c299;
+    border: 1px;
+    width: 250px;
+    height: 810px;
+    padding: 10px;
+    margin-top: 15px;
+    margin-right: 25px;
+    margin-left: 20px;
+  }
+  
+  #game {
+    display: inline-block;
+    clear:left;
+    /*float:right;*/
+    position:relative;
+    width:832px;
+    height: 810px
+    overflow:hidden;
+    /*margin:0 auto;*/
+  }
+  
+  #left-column {
+    display: inline-block;
+    float: left;
+    position: relative;
+    font-size: 24px;
+    font-family: 'Slabo 27px', serif;
+    background-color: #a7c299;
+    border: 1px;
+    width: 250px;
+    height: 810px;
+    padding: 10px;
+    margin-top: 15px;
+    margin-right: 25px;
+    margin-left: 20px;
+  }
+  
+  #gameboard {
+    text-align: center;
+    font-family: BombermanFont;
+    /*src: url(/Users/dexterleow/Desktop/Project-1-Bomberman/fonts/ufonts.com_bomberman.ttf);*/
+    font-size: 30px;
+    width: 828px;
+    height:100px;
+    padding: 2px;
+    background-color: #f27e05;
+    margin:auto;
+    margin-top: 15px;
+    float:left;
+  }
+  
+  #stage {
+    position:relative;
+    width:832px;
+    height:704px;
+    background-image: url("../img/Games-Artwork/background.jpg");
+    margin: auto;
+    margin-top: 20px;
+    float: left;
+  }
+  
+  .cell {
+    display: block;
+    position: absolute;
+    width: 64px;
+    height: 64px;
+  }
+  
+  .b {
+    display: inline-block;
+    position: relative;
+    margin: 1%;
+    float: left;
+    width: 23%;
+    height: 80px;
+    background-color: lightgrey;
+  }
+  
+  #gamescore {
+    color:white;
+    font-size:30px;
+    /*vertical-align: middle;*/
+    line-height: 3em;
+    height:70px;
+    text-align: center;
+    background-color: black;
+    margin-top: 10px;
+    margin-right: 5px;
+    margin-left: 5px;
+    border: 5px solid red;
+  }
+  
+  #output {
+    color:white;
+    vertical-align: middle;
+    line-height: 90px;
+    text-align: center;
+    font-family:BombermanFont;
+    font-size: 18px;
+    width: 380px !important;
+    height:70px;
+    margin-top: 10px;
+    margin-right: 5px;
+    margin-left: 5px;
+    border: 5px solid red;
+    z-index: 2;
+    background-color: black;
+  }
+  
+  #gamePoster {
+    width:245px;
+    height: 450px;
+  }
+  
+  #gameMode {
+    text-align: center;
+  }
+  
+  #resetButton {
+    background-color: #4CAF50; /* Green */
+    border: 2px solid black;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+  }
+  
+  body {
+    background-color: #a7c299;
+  }
+  
