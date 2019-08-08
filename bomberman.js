@@ -19,15 +19,15 @@ function restart() {
 var map = [
   [0,0,1,1,1,1,1,1,1,1,0,0,0],
   [0,2,1,2,0,2,0,2,0,2,0,2,0],
-  [0,0,1,0,1,0,1,2,1,0,0,0,0],
-  [0,2,0,2,1,2,0,2,1,2,1,2,1],
-  [0,0,0,0,1,1,1,1,2,0,0,0,0],
-  [0,2,0,2,0,2,2,2,0,2,0,2,1],
-  [0,2,0,0,0,0,0,1,1,0,0,0,0],
-  [0,2,1,2,0,2,1,2,0,2,0,2,0],
-  [1,1,2,0,0,0,1,1,0,1,1,1,0],
-  [0,2,0,2,0,2,0,2,1,2,0,2,0],
-  [1,0,0,0,1,1,1,0,2,0,0,0,-1],
+  [0,0,1,0,1,0,1,2,1,1,1,1,0],
+  [0,2,1,2,1,2,0,2,1,2,1,2,1],
+  [0,0,1,1,1,1,1,1,2,0,0,0,0],
+  [0,2,1,2,1,2,2,2,0,2,0,2,1],
+  [0,2,0,0,1,1,1,1,1,1,1,1,0],
+  [0,2,1,2,0,2,1,2,1,2,0,2,0],
+  [1,1,2,1,1,1,1,1,1,1,1,1,0],
+  [0,2,1,2,1,2,1,2,1,2,0,2,0],
+  [1,0,1,1,1,1,1,0,2,0,0,0,-1],
 ];
 
 for(let i = 0; i < map.length; i++){
@@ -122,6 +122,7 @@ var bombColumn
 var score = 0;
 //Initial Life
 var bombermanLife = 100;
+var bombermanLife2 = 100;
 
 //Hero's Movement
 for(var row = 0; row < ROWS; row++)
@@ -167,6 +168,38 @@ var A = 65; //Keycode for left
 var Q = 81; //Keycode for Spacebar
 
 render();
+
+function mati1(){
+  UP=49;
+  DOWN = 50;
+  RIGHT = 51;
+  LEFT = 52;
+  SPACEBAR = 53;
+};
+
+function mati2(){
+  W=49;
+  S = 50;
+  D = 51;
+  A = 52;
+  Q = 53;
+};
+
+function kembalikan1(){
+UP = 38; //Keycode for up
+DOWN = 40; //Keycode for down
+RIGHT = 39; //Keycode for right
+LEFT = 37; //Keycode for left
+SPACEBAR = 17; //Keycode for Spacebar
+};
+
+function kembalikan2(){
+W = 87; //Keycode for up
+S = 83; //Keycode for down
+D = 68; //Keycode for right
+A = 65; //Keycode for left
+Q = 81; //Keycode for Spacebar
+};
 
 function keydownHandler(event) {
   event.preventDefault()
@@ -417,8 +450,6 @@ function clearTiles(){
     //alert('BOOM!');
     bombArray[bombRow1][bombColumn1] = 0;
     explosionSounds.play();
-    //console.log("Row: ", bombRow, "Col: ", bombColumn);
-    // if (map[bombRow][++bombColumn] = '0' || map[bombRow][++bombColumn]) = '1') {
 
     //Right. < 2 as only 1 and 0 variables of softwall and standardtile can be bombed
     if ((map[bombRow1][bombColumn1 + 1] < 2) && (bombColumn1 <= COLUMNS)) {
@@ -471,198 +502,72 @@ function clearTiles(){
   console.log("Change the softWall into standardTile")
 }
 
-function moveMonster(rowParameter, columnParameter, WhichMonster) //Movement for monsters
-{
-   return function()
-  {
-    //The 4 possible directions that the monster can move
-    var UP = 1;
-    var DOWN = 2;
-    var LEFT = 3;
-    var RIGHT = 4;
-
-    //An array to store the valid direction that
-    //the monster is allowed to move in
-    var validDirections = [];
-    var KillMonster = false
-    //The final direction that the monster will move in
-    var direction = undefined;
-
-    //Find out what kinds of things are in the cells
-    //that surround the monster. If the cells contain STANDARDTILE,
-    //push the corresponding direction into the validDirections array
-
-
-    if(rowParameter > 0)
-    {
-      var thingAbove = map[rowParameter - 1][columnParameter];
-      if ((thingAbove === 0) && ((gameObjects[rowParameter - 1][columnParameter] === 5) || (gameObjects[rowParameter - 1][columnParameter] === 0)))
-      {
-        validDirections.push(UP);
-      }
-    }
-    if(rowParameter < ROWS - 1)
-    {
-      var thingBelow = map[rowParameter + 1][columnParameter];
-      if ((thingBelow === 0) && ((gameObjects[rowParameter + 1][columnParameter] === 5) || (gameObjects[rowParameter + 1][columnParameter] === 0)))
-      {
-        validDirections.push(DOWN);
-      }
-    }
-    if(columnParameter > 0)
-    {
-      var thingToTheLeft = map[rowParameter][columnParameter - 1];
-      if ((thingToTheLeft === 0) && ((gameObjects[rowParameter][columnParameter - 1] === 5) || (gameObjects[rowParameter][columnParameter - 1] === 0)))
-      {
-        validDirections.push(LEFT);
-      }
-    }
-    if(columnParameter < COLUMNS - 1)
-    {
-      var thingToTheRight = map[rowParameter][columnParameter + 1];
-      if ((thingToTheRight === 0)  && ((gameObjects[rowParameter][columnParameter + 1] === 5) || (gameObjects[rowParameter][columnParameter + 1] === 0)))
-      {
-        validDirections.push(RIGHT);
-      }
-    }
-
-    // console.log(validDirections);
-
-    //The validDirections array now contains 0 to 4 directions that the
-    //contain STANDARDTILE cells. Which of those directions will the monster
-    //choose to move in?
-
-    //If a valid direction was found, Randomly choose one of the
-    //possible directions and assign it to the direction variable
-    if(validDirections.length !== 0)
-    {
-      var randomNumber = Math.floor(Math.random() * validDirections.length);
-      direction = validDirections[randomNumber];
-    }
-
-    //Move the monster in the chosen direction
-    switch(direction)
-    {
-      case UP:
-      //Clear the monster's current cell
-      gameObjects[rowParameter][columnParameter] = 0;
-      //Subtract 1 from the monster's row
-      rowParameter--;
-      //Apply the monster's new updated position to the array
-      // gameObjects[rowParameter][columnParameter] = MONSTER;
-      break;
-
-      case DOWN:
-      gameObjects[rowParameter][columnParameter] = 0;
-      rowParameter++;
-      // gameObjects[rowParameter][columnParameter] = MONSTER;
-      break;
-
-      case LEFT:
-      gameObjects[rowParameter][columnParameter] = 0;
-      columnParameter--;
-      // gameObjects[rowParameter][columnParameter] = MONSTER;
-      break;
-
-      case RIGHT:
-      gameObjects[rowParameter][columnParameter] = 0;
-      columnParameter++;
-      // gameObjects[rowParameter][columnParameter] = MONSTER;
-      //console.log("monster_one moving out");
-    }
-    //console.log(rowParameter, columnParameter);
-
-    if (bombArray[rowParameter][columnParameter] === FIRE) {
-      //Kill monster
-      KillMonster = true
-    }
-
-    switch (WhichMonster) {
-      case "One":
-      monsterRow = rowParameter;
-      monsterColumn = columnParameter;
-
-      if (KillMonster) {
-        gameObjects[rowParameter][columnParameter] = 0; // Use to change the dead spider image from spider to tile
-        clearInterval(MonsterMove1);
-        monsterRow = -5; // Change Monster Value to something else so that Monter is dead permanently
-        monsterColumn = -5;
-
-        gameMessage = "Monster Killed!!!";
-        score = score + 500;
-        spiderKilled.play();
-      }
-      break;
-
-      case "Two":
-      monsterRow_Two = rowParameter;
-      monsterColumn_Two = columnParameter;
-
-      if (KillMonster) {
-        gameObjects[rowParameter][columnParameter] = 0; // Use to change the dead spider image from spider to tile
-        clearInterval(MonsterMove2);
-        monsterRow_Two = -5; // Change Monster Value to something else so that Monter is dead permanently
-        monsterColumn_Two = -5;
-
-        gameMessage = "Monster Killed!!!";
-        score = score + 500;
-        spiderKilled.play();
-      }
-      break;
-
-      case "Three":
-      monsterRow_Three = rowParameter;
-      monsterColumn_Three = columnParameter;
-
-      if (KillMonster) {
-        gameObjects[rowParameter][columnParameter] = 0; // Use to change the dead spider image from spider to tile
-        clearInterval(MonsterMove3);
-        monsterRow_Three = -5; // Change Monster Value to something else so that Monter is dead permanently
-        monsterColumn_Three = -5;
-
-        gameMessage = "Monster Killed!!!";
-        score = score + 500;
-        spiderKilled.play();
-      }
-    }
-  }
-}
-
 var scenario = ""
 function CheckState() {
 
-  if(map[heroRow][heroColumn] === PRINCESS) {
-    scenario = "SavePrincess"
-  } else if (((heroRow === monsterRow) && (heroColumn === monsterColumn)) || ((heroRow === monsterRow_Two) && (heroColumn === monsterColumn_Two)) || ((heroRow === monsterRow_Three) && (heroColumn === monsterColumn_Three))) {
-    scenario = "KilledByMonster"
-  } else if (bombArray[heroRow][heroColumn] === FIRE) {
+  // if(map[heroRow][heroColumn] === PRINCESS) {
+  //   scenario = "SavePrincess"}
+  // if (((heroRow === monsterRow) && (heroColumn === monsterColumn)) || ((heroRow === monsterRow_Two) && (heroColumn === monsterColumn_Two)) || ((heroRow === monsterRow_Three) && (heroColumn === monsterColumn_Three))) {
+  //   scenario = "KilledByMonster"
+    if (bombArray[heroRow][heroColumn] === FIRE) {
     scenario = "KilledByBomb"
-  } else if(bombArray[heroRow][heroColumn]==='immortal'){
-    score += 10000000
+  }else if (bombArray[hero2Row][hero2Column] === FIRE) {
+    scenario = "KilledByBomb2"
+  }else if(bombArray[heroRow][heroColumn]==='immortal'){
+    bombermanLife += 150
     bombArray[heroRow][heroColumn]=0;
     itemArray[heroRow][heroColumn]=0;
-    scenario = "GameOn"
+    scenario = "GameOn"}
+  else if(bombArray[hero2Row][hero2Column]==='immortal'){
+      bombermanLife2 += 150
+      bombArray[hero2Row][hero2Column]=0;
+      itemArray[hero2Row][hero2Column]=0;
+      scenario = "GameOn2"
   } else if (bombArray[heroRow][heroColumn]==='decreasehealth'){
-    score += 100000000
+    bombermanLife2 -=30
     bombArray[heroRow][heroColumn]=0;
     itemArray[heroRow][heroColumn]=0;
-    scenario = "GameOn"
+    scenario = "decrease"
+    } else if (bombArray[hero2Row][hero2Column]==='decreasehealth'){
+    bombermanLife -=30
+    bombArray[hero2Row][hero2Column]=0;
+    itemArray[hero2Row][hero2Column]=0;
+    scenario = "decrease2"
   } else if (bombArray[heroRow][heroColumn]==='ownhealth') {
-    score += 1000000000
+    bombermanLife +=20
+    bombArray[heroRow][heroColumn]=0;
+    itemArray[heroRow][heroColumn]=0;
+    scenario = "health"
+  } else if (bombArray[hero2Row][hero2Column]==='ownhealth') {
+    bombermanLife2 +=20
+    bombArray[hero2Row][hero2Column]=0;
+    itemArray[hero2Row][hero2Column]=0;
+    scenario = "health2"
+  }  
+  else if (bombArray[heroRow][heroColumn]==='expandbomb') {
+    placeBomb(hero2Row,hero2Column);
     bombArray[heroRow][heroColumn]=0;
     itemArray[heroRow][heroColumn]=0;
     scenario = "GameOn"
-  } else if (bombArray[heroRow][heroColumn]==='expandbomb') {
-    score += 10000000000
-    bombArray[heroRow][heroColumn]=0;
-    itemArray[heroRow][heroColumn]=0;
+  }else if (bombArray[hero2Row][hero2Column]==='expandbomb') {
+    placeBomb(heroRow,heroColumn);
+    bombArray[hero2Row][hero2Column]=0;
+    itemArray[hero2Row][hero2Column]=0;
     scenario = "GameOn"
   } else if (bombArray[heroRow][heroColumn]==='deactivated') {
-    score += 100000000000
+    mati2();
+    setTimeout(kembalikan2,5000);
     bombArray[heroRow][heroColumn]=0;
     itemArray[heroRow][heroColumn]=0;
     scenario = "GameOn"
-  } else {
+  }else if (bombArray[hero2Row][hero2Column]==='deactivated') {
+    mati1();
+    setTimeout(kembalikan1,5000);
+    bombArray[hero2Row][hero2Column]=0;
+    itemArray[hero2Row][hero2Column]=0;
+    scenario = "GameOn"
+  }  
+  else {
     scenario = "GameOn"
   }
 }
@@ -674,32 +579,48 @@ function endGame(scenario) {
 
   var End = false;
 
-  if (scenario === "SavePrincess") {
+  // if (scenario === "SavePrincess") {
 
-    var final_score = score + 10000;
+  //   var final_score = score + 10000;
 
-    if (final_score > 12000) {
-      score = score
-    } else {
-      score = final_score
-    }
+  //   if (final_score > 12000) {
+  //     score = score
+  //   } else {
+  //     score = final_score
+  //   }
 
-    //Display the game message
-    gameMessage = "PRINCESS Saved! :)";
-    victorySound.play();
-    End = true
+  //   //Display the game message
+  //   gameMessage = "PRINCESS Saved! :)";
+  //   victorySound.play();
+  //   End = true} 
 
-  } else if (scenario === "KilledByBomb"){
+    if (scenario === "KilledByBomb"){
     bombermanLife -= 10;
     bombArray[heroRow][heroColumn] = 0;
     gameOverBoo.play();
     if(bombermanLife <= 0){
       End = true;
-      gameMessage = "BOOM! In your face!";
+      gameMessage = "Pemenang player 2!";
     }
-  } else {
-
   }
+  if (scenario === "KilledByBomb2"){
+    bombermanLife2 -= 10;
+    bombArray[hero2Row][hero2Column] = 0;
+    gameOverBoo.play();
+    if(bombermanLife2 <= 0){
+      End = true;
+      gameMessage = "Pemenang player 1!";
+    }
+  }
+  if (scenario === "health"){
+    bombermanLife += 10;
+    bombArray[heroRow][heroColumn] = 0;
+    gameOverBoo.play();
+    if(bombermanLife <= 0){
+      End = true;
+      gameMessage = "Pemenang player 2!";
+    }
+  }   
 
   if (End) {
 
@@ -788,7 +709,7 @@ function render()
           break;
         
         case 'deactivated':
-          cell.src = "https://66.media.tumblr.com/372fc56207f91295530fbe844f334711/tumblr_payhcjbm8E1r2hy3ro1_400.gifhttps://cdn0.iconfinder.com/data/icons/basic-glyph/1024/remove-user-512.png";
+          cell.src = "https://cdn2.iconfinder.com/data/icons/antivirus-internet-security/33/protection_deactivated-512.png";
           break;
 
       }
@@ -823,7 +744,7 @@ function render()
   output.textContent = gameMessage;
   // console.log(gameMessage);
   //Display the score
-  gamescore.innerHTML = score;
+  gamescore.innerHTML = bombermanLife2;
 
   bomberLife.innerHTML = bombermanLife;
 
