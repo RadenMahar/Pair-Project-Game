@@ -9,11 +9,17 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="container-fluid" id="home">
+    <div class="container-fluid"  id="home">
+        <div class="row mt-3 justify-content-center">
+            <div class="col-md-8 text-center">
+                <img src="img/Games-Artwork/dota.gif" alt="DOTA">
+            </div>
+
+        </div>
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="box">
-                    <p style="display: block; font-size: 50px; justify-self: center; margin: 60px 60px;">
+                    <p class="ml2" style="display: block; font-size: 45px; justify-self: center; margin: 60px 60px;">
                         ALTA BOMB FIGHT
                     </p>
                     <a href="index.html">
@@ -28,11 +34,34 @@
             </div>
         </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
     <script>
         function rules(event){
             event.preventDefault();
-            alert("Game ini dimainkan oleh dua orang\nTujuanmu adalah mematikan mush.\nAwas! Hati-hati dengan api dan bomb!")
+            alert("Player 1 menggerakkan dengan tombol arah,\nPlayer dua dengan asd\nTujuanmu adalah mendapatkan poin tertinggi.\nAda bonus dibalik tong, jangan lewatkan!\nJangan coba bakar dirimu!")
         }
+
+        var textWrapper = document.querySelector('.ml2');
+        textWrapper.innerHTML = textWrapper.textContent.replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>");
+
+        anime.timeline({loop: true})
+        .add({
+            targets: '.ml2 .letter',
+            scale: [4,1],
+            opacity: [0,1],
+            translateZ: 0,
+            easing: "easeOutExpo",
+            duration: 950,
+            delay: function(el, i) {
+            return 70*i;
+            }
+        }).add({
+            targets: '.ml2',
+            opacity: 30,
+            duration: 1000,
+            easing: "easeOutExpo",
+            delay: 1000
+        });
     </script>
 </body>
 </html>

@@ -189,7 +189,7 @@
 
 #home {
   height: 740px;
-  background-image: url("img/Games-Artwork/background.jpg");
+  /* background-image: url("../img/Games-Artwork/background.jpg"); */
 }
 
 .box {
@@ -197,7 +197,7 @@
   height: 300px;
   width: 600px;
   background-color: #a7c299;
-  margin-top: 220px;
+  margin-top: 20px;
   margin-left: 377px;
   border-radius: 40px;
   border: #4CAF50 solid 5px;
@@ -220,4 +220,4 @@
   color: #4CAF50;
 
 }
-  
+
