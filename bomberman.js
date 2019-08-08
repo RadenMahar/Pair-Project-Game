@@ -750,7 +750,7 @@ function render()
         break;
 
         case SOFTWALL:
-        cell.src = "img/Games-Artwork/softWall.png";
+        cell.src = "img/Games-Artwork/tower.png";
         break;
 
         case HARDWALL:
@@ -801,11 +801,11 @@ function render()
         break;
 
         case HERO:
-        cell.src ="img/Games-Artwork/player-1.png"
+        cell.src ="img/Games-Artwork/dota-player1.gif"
         break;
 
         case PRINCESS:
-        cell.src = "img/Games-Artwork/player-2.png";
+        cell.src = "img/Games-Artwork/dota-player2.gif";
         break;
 
       }
