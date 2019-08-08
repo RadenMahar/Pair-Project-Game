@@ -25,9 +25,9 @@ var map = [
   [0,2,0,2,0,2,2,2,0,2,0,2,1],
   [0,2,0,0,0,0,0,1,1,0,0,0,0],
   [0,2,1,2,0,2,1,2,0,2,0,2,0],
-  [1,1,2,0,0,0,1,1,0,1,1,0,0],
-  [0,2,0,2,0,2,0,2,1,2,0,2,1],
-  [1,0,0,0,1,1,1,0,2,0,1,0,-1],
+  [1,1,2,0,0,0,1,1,0,1,1,1,0],
+  [0,2,0,2,0,2,0,2,1,2,0,2,0],
+  [1,0,0,0,1,1,1,0,2,0,0,0,-1],
 ];
 
 for(let i = 0; i < map.length; i++){
@@ -320,7 +320,7 @@ function keydownHandler(event) {
     case SPACEBAR:
     {
       console.log("A Bomb has been planted.");
-      placeBomb();
+      placeBomb(heroRow,heroColumn);
       plantBombSpaceBar.play();
     }
     break;
@@ -328,7 +328,7 @@ function keydownHandler(event) {
     case Q:
     {
       console.log("A Bomb has been planted.");
-      placeBomb();
+      placeBomb(hero2Row,hero2Column);
       plantBombSpaceBar.play();
     }
     break;
@@ -343,7 +343,7 @@ function keydownHandler(event) {
 //Bomb
 var bombPack = 10
 // number of bombs
-function placeBomb(){
+function placeBomb(heroRow,heroColumn){
   // if(placebomb && player.bombs != 0)
   //     map[heroColumn][heroRow].object = 2;
   {
