@@ -159,7 +159,7 @@ var UP = 38; //Keycode for up
 var DOWN = 40; //Keycode for down
 var RIGHT = 39; //Keycode for right
 var LEFT = 37; //Keycode for left
-var SPACEBAR = 17; //Keycode for Spacebar
+var SPACEBAR = 16; //Keycode for Spacebar
 
 var W = 87; //Keycode for up
 var S = 83; //Keycode for down
@@ -190,7 +190,7 @@ UP = 38; //Keycode for up
 DOWN = 40; //Keycode for down
 RIGHT = 39; //Keycode for right
 LEFT = 37; //Keycode for left
-SPACEBAR = 17; //Keycode for Spacebar
+SPACEBAR = 16; //Keycode for Spacebar
 };
 
 function kembalikan2(){
